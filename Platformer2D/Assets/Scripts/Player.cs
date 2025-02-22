@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private HealthBase healthBase;
+    private AudioSource audioSource;
 
     [SerializeField] private SOPlayerStats playerStats;
+    [SerializeField] private ParticleSystem runParticle;
 
     private float scaleX;
 
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthBase = GetComponent<HealthBase>();
+        audioSource = GetComponentInChildren<AudioSource>();
 
         scaleX = transform.localScale.x;
     }
@@ -40,12 +43,12 @@ public class Player : MonoBehaviour
 
         if (rb.velocity.x < 0.3f && rb.velocity.x > -0.3f)
         {
-            playerStats.runParticle.gameObject.SetActive(false);
-            playerStats.runParticle.Play();
+            runParticle.gameObject.SetActive(false);
+            runParticle.Play();
         }
         else
         {
-            playerStats.runParticle.gameObject.SetActive(true);
+            runParticle.gameObject.SetActive(true);
         }
     }
 
@@ -83,6 +86,7 @@ public class Player : MonoBehaviour
             var obj = Instantiate(playerStats.jumpParticle.gameObject, transform.position, Quaternion.identity);
             Destroy(obj, 3);
             anim.SetTrigger("Jump");
+            audioSource.Play();
         }
     }
 

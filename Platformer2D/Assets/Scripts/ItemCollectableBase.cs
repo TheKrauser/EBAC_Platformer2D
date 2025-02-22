@@ -6,6 +6,20 @@ public class ItemCollectableBase : MonoBehaviour
 {
     [SerializeField] private string compareTag = "Player";
 
+    private AudioSource audioSource;
+    public AudioSource AudioSource
+    {
+        get { return audioSource; }
+        set { audioSource = value; }
+    }
+
+    private Transform visuals;
+    public Transform Visuals
+    {
+        get { return visuals; }
+        set { visuals = value; }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.CompareTag(compareTag))
@@ -16,7 +30,6 @@ public class ItemCollectableBase : MonoBehaviour
 
     protected virtual void Collect()
     {
-        gameObject.SetActive(false);
         OnCollect();
     }
 

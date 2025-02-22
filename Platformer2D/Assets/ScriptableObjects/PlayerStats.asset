@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   speedRun: 35
-  jumpForce: 150
+  jumpForce: 240
   runParticle: {fileID: 7037758198653756743, guid: f4019c14ada8b774c9ad1208b9aab0ba, type: 3}
   jumpParticle: {fileID: 2885747132300863414, guid: 53f0bff296eb46c429e7d3ca6477f100, type: 3}
   friction: {x: -0.2, y: 0}

@@ -9,7 +9,6 @@ public class SOPlayerStats : ScriptableObject
     public float speedRun;
     public float jumpForce;
 
-    public ParticleSystem runParticle;
     public ParticleSystem jumpParticle;
 
     public Vector2 friction;
