@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float speedRun;
     [SerializeField] private float jumpForce;
 
+    [SerializeField] private ParticleSystem runParticle;
+    [SerializeField] private ParticleSystem jumpParticle;
+
     private float scaleX;
 
     [SerializeField] private Vector2 friction;
@@ -41,6 +44,16 @@ public class Player : MonoBehaviour
         HandleJump();
         HandleMovement();
         HandleAnimations();
+
+        if (rb.velocity.x < 0.3f && rb.velocity.x > -0.3f)
+        {
+            runParticle.gameObject.SetActive(false);
+            runParticle.Play();
+        }
+        else
+        {
+            runParticle.gameObject.SetActive(true);
+        }
     }
 
     private void HandleMovement()
@@ -74,6 +87,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * jumpForce;
+            var obj = Instantiate(jumpParticle.gameObject, transform.position, Quaternion.identity);
+            Destroy(obj, 3);
             anim.SetTrigger("Jump");
         }
     }
@@ -85,7 +100,14 @@ public class Player : MonoBehaviour
         else
             anim.speed = 1;
 
-        anim.SetFloat("X", Mathf.Abs(rb.velocity.x));
         anim.SetFloat("Y", rb.velocity.y);
+
+        if (rb.velocity.x == 0)
+        {
+            anim.SetFloat("X", 0);
+            return;
+        }
+
+        anim.SetFloat("X", Mathf.Abs(rb.velocity.x));
     }
 }
