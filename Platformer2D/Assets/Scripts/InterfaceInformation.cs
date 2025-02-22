@@ -7,6 +7,7 @@ using TMPro;
 public class InterfaceInformation : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinText;
+    [SerializeField] private TMP_Text blueCoinText;
 
     public static InterfaceInformation Instance;
 
@@ -30,5 +31,6 @@ public class InterfaceInformation : MonoBehaviour
     public void UpdateInterface()
     {
         coinText.text = "x " + ItemManager.Instance.GetCoins();
+        blueCoinText.text = "x " + ItemManager.Instance.GetBlueCoins();
     }
 }

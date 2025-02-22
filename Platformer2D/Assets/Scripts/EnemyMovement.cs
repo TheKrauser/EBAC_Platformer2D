@@ -28,23 +28,21 @@ public class EnemyMovement : EnemyBase
         else
             transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
 
-        if (transform.position.x > initialPosition.x + maxHorizontalMovement)
+        if (transform.position.x >= initialPosition.x + maxHorizontalMovement && isGoingRight)
         {
             isGoingRight = false;
             Flip();
-            return;
         }
-        else if (transform.position.x < initialPosition.x - maxHorizontalMovement)
+        else if (transform.position.x <= initialPosition.x - maxHorizontalMovement && !isGoingRight)
         {
             isGoingRight = true;
             Flip();
-            return;
         }
     }
 
     private void Flip()
     {
-        if (transform.eulerAngles.y >= 180)
+        if (transform.eulerAngles.y == 180)
         {
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 180, transform.localEulerAngles.z);
             return;

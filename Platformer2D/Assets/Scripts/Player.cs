@@ -8,16 +8,9 @@ public class Player : MonoBehaviour
     private Animator anim;
     private HealthBase healthBase;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float speedRun;
-    [SerializeField] private float jumpForce;
-
-    [SerializeField] private ParticleSystem runParticle;
-    [SerializeField] private ParticleSystem jumpParticle;
+    [SerializeField] private SOPlayerStats playerStats;
 
     private float scaleX;
-
-    [SerializeField] private Vector2 friction;
 
     private float currentSpeed;
 
@@ -47,12 +40,12 @@ public class Player : MonoBehaviour
 
         if (rb.velocity.x < 0.3f && rb.velocity.x > -0.3f)
         {
-            runParticle.gameObject.SetActive(false);
-            runParticle.Play();
+            playerStats.runParticle.gameObject.SetActive(false);
+            playerStats.runParticle.Play();
         }
         else
         {
-            runParticle.gameObject.SetActive(true);
+            playerStats.runParticle.gameObject.SetActive(true);
         }
     }
 
@@ -62,23 +55,23 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(!isRunning ? -speed : -speedRun, rb.velocity.y);
+            rb.velocity = new Vector2(!isRunning ? -playerStats.speed : -playerStats.speedRun, rb.velocity.y);
             transform.localScale = new Vector3(-scaleX, transform.localScale.y, transform.localScale.z);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(!isRunning ? speed : speedRun, rb.velocity.y);
+            rb.velocity = new Vector2(!isRunning ? playerStats.speed : playerStats.speedRun, rb.velocity.y);
             transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
         }
 
         if (rb.velocity.x > 0)
         {
-            rb.velocity += friction;
+            rb.velocity += playerStats.friction;
         }
         else if (rb.velocity.x < 0)
         {
-            rb.velocity -= friction;
+            rb.velocity -= playerStats.friction;
         }
     }
 
@@ -86,8 +79,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = Vector2.up * jumpForce;
-            var obj = Instantiate(jumpParticle.gameObject, transform.position, Quaternion.identity);
+            rb.velocity = Vector2.up * playerStats.jumpForce;
+            var obj = Instantiate(playerStats.jumpParticle.gameObject, transform.position, Quaternion.identity);
             Destroy(obj, 3);
             anim.SetTrigger("Jump");
         }

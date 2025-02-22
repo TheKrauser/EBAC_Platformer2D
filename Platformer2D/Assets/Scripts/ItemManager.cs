@@ -6,7 +6,8 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance;
 
-    public int coins = 0;
+    public SOInt coins;
+    public SOInt blueCoins;
 
     private void Awake()
     {
@@ -23,16 +24,28 @@ public class ItemManager : MonoBehaviour
 
     private void Reset()
     {
-        coins = 0;
+        coins.value = 0;
+        blueCoins.value = 0;
+        InterfaceInformation.Instance.UpdateInterface();
     }
 
     public void AddCoins(int amount = 1)
     {
-        coins += amount;
+        coins.value += amount;
+    }
+
+    public void AddBlueCoins(int amount = 1)
+    {
+        blueCoins.value += amount;
     }
 
     public int GetCoins()
     {
-        return coins;
+        return coins.value;
+    }
+
+    public int GetBlueCoins()
+    {
+        return blueCoins.value;
     }
 }
