@@ -20,6 +20,13 @@ public class ItemCollectableBase : MonoBehaviour
         set { visuals = value; }
     }
 
+    private Collider2D coll;
+    public Collider2D Coll
+    {
+        get { return coll; }
+        set { coll = value; }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.CompareTag(compareTag))

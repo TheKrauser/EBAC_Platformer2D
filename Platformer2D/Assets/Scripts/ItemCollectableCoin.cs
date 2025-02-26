@@ -10,6 +10,7 @@ public class ItemCollectableCoin : ItemCollectableBase
     {
         base.AudioSource = GetComponentInChildren<AudioSource>();
         base.Visuals = transform.Find("Visuals");
+        base.Coll = GetComponent<Collider2D>();
     }
 
     protected override void OnCollect()
@@ -17,6 +18,7 @@ public class ItemCollectableCoin : ItemCollectableBase
         var obj = Instantiate(coinParticle, transform.position, Quaternion.identity);
         obj.transform.SetParent(null);
         base.Visuals.gameObject.SetActive(false);
+        base.Coll.enabled = false;
 
         if(base.AudioSource != null) base.AudioSource.Play();
 
